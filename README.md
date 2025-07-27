@@ -93,6 +93,17 @@ zs adapts based on directory patterns:
 - **Learning** (`*/code/learning/*`): Optimized for tutorials and experiments
 - **Personal** (`*/code/*`): Standard personal project setup
 
+## ⚠️ Note on Debugging Support
+
+Debugging in Zed is still evolving. While `zs` sets up debug configurations:
+
+- **Ruby**: Debugging is experimental (requires `debug` gem)
+- **Python**: Full support via `debugpy`
+- **JavaScript/TypeScript**: Full support
+- **Elixir**: Not yet supported in Zed
+
+We're actively testing and updating configurations as Zed's debugging capabilities mature.
+
 ## Advanced Usage
 
 ### Force Regeneration
