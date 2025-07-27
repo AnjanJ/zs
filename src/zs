@@ -68,9 +68,9 @@ ensure_dependencies() {
   
   case "$project_type" in
     *rails*|*lti*)
-      if ! gem list ruby-debug-ide -i &>/dev/null; then
+      if ! gem list debug -i &>/dev/null; then
         info "Installing Ruby debug support..."
-        gem install ruby-debug-ide debase --no-document &>/dev/null && info "Ruby debug ready"
+        gem install debug --no-document &>/dev/null && info "Ruby debug ready"
       fi
       ;;
     python)
