@@ -14,7 +14,7 @@ NC='\033[0m'
 # Configuration
 ZS_INSTALL_DIR="$HOME/.local/bin"
 ZS_CONFIG_DIR="$HOME/.config/zs"
-ZS_REPO_URL="https://github.com/yourusername/zs-zed-smart-setup"
+ZS_REPO_URL="https://github.com/AnjanJ/zs"
 REQUIRED_COMMANDS="git curl"
 BACKUP_DIR="$HOME/.config/zs-backup-$(date +%Y%m%d_%H%M%S)"
 

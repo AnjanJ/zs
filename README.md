@@ -24,14 +24,14 @@
 ### Quick Install
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/yourusername/zs-zed-smart-setup/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/AnjanJ/zs/main/install.sh | bash
 ```
 
 ### Manual Install
 
 ```bash
-git clone https://github.com/yourusername/zs-zed-smart-setup.git
-cd zs-zed-smart-setup
+git clone https://github.com/AnjanJ/zs.git
+cd zs
 ./install.sh
 ```
 

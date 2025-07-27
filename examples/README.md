@@ -134,7 +134,7 @@ zs
 ```bash
 $ zs
 ❌ zs config not found at /home/user/.config/zs
-❌ Run the installer first: curl -sSL https://raw.githubusercontent.com/yourusername/zs-zed-smart-setup/main/install.sh | bash
+❌ Run the installer first: curl -sSL https://raw.githubusercontent.com/AnjanJ/zs/main/install.sh | bash
 ```
 
 ### Skipping Git Hooks
