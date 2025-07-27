@@ -7,110 +7,33 @@ on:
     branches: [ main ]
 
 jobs:
-  shellcheck:
-    name: ShellCheck
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
-        with:
-          scandir: '.'
-          severity: warning
-          check_together: 'yes'
-          additional_files: 'install.sh src/zs'
-
-  test-install:
-    name: Test Installation
+  test:
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        shell: [bash, zsh]
-        exclude:
-          - os: ubuntu-latest
-            shell: zsh  # Ubuntu runners don't have zsh by default
-    runs-on: ${{ matrix.os }}
+        
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
+    
+    - name: Install shellcheck
+      run: |
+        if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+          sudo apt-get update && sudo apt-get install -y shellcheck
+        else
+          brew install shellcheck
+        fi
+        
+    - name: Lint scripts
+      run: |
+        shellcheck install.sh
+        shellcheck src/zs
+        shellcheck test.sh
+        
+    - name: Run tests
+      run: ./test.sh
       
-      - name: Install zsh (Ubuntu)
-        if: matrix.os == 'ubuntu-latest' && matrix.shell == 'zsh'
-        run: sudo apt-get update && sudo apt-get install -y zsh
-      
-      - name: Test installation
-        shell: ${{ matrix.shell }} {0}
-        run: |
-          # Test the installer
-          ./install.sh
-          
-          # Check if zs was installed
-          [[ -f "$HOME/.local/bin/zs" ]] || exit 1
-          [[ -d "$HOME/.config/zs" ]] || exit 1
-          
-          # Check if templates were copied
-          [[ -d "$HOME/.config/zs/templates" ]] || exit 1
-          [[ -d "$HOME/.config/zs/hooks" ]] || exit 1
-
-  test-functionality:
-    name: Test Functionality
-    runs-on: ubuntu-latest
-    needs: test-install
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Install zs
-        run: ./install.sh
-      
-      - name: Test project detection
-        run: |
-          export PATH="$HOME/.local/bin:$PATH"
-          
-          # Test Rails project detection
-          mkdir -p /tmp/test-rails && cd /tmp/test-rails
-          echo 'source "https://rubygems.org"' > Gemfile
-          echo 'gem "rails"' >> Gemfile
-          zs
-          [[ -f .zed/tasks.json ]] || exit 1
-          
-          # Test React project detection
-          mkdir -p /tmp/test-react && cd /tmp/test-react
-          echo '{"dependencies":{"react":"^18.0.0"}}' > package.json
-          zs
-          [[ -f .zed/tasks.json ]] || exit 1
-          
-          # Test Python project detection
-          mkdir -p /tmp/test-python && cd /tmp/test-python
-          echo "flask==2.0.0" > requirements.txt
-          zs
-          [[ -f .zed/tasks.json ]] || exit 1
-
-  validate-templates:
-    name: Validate Templates
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Validate JSON templates
-        run: |
-          # Check all JSON files are valid
-          find templates -name "*.json" -type f | while read -r file; do
-            echo "Validating $file"
-            python3 -m json.tool "$file" > /dev/null || exit 1
-          done
-
-  check-scripts:
-    name: Check Scripts
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Check shell scripts
-        run: |
-          # Check all scripts are executable
-          [[ -x install.sh ]] || exit 1
-          [[ -x src/zs ]] || exit 1
-          
-          # Check for common issues
-          ! grep -r "echo -n" src/ hooks/ || exit 1  # Avoid echo -n
-          ! grep -r "^\s*function\s" src/ hooks/ || exit 1  # Use func() not function func
+    - name: Test installation
+      run: |
+        ./install.sh --local --prefix /tmp/test-install
+        /tmp/test-install/bin/zs help
