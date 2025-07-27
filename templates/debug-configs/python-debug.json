@@ -1,0 +1,29 @@
+[
+  {
+    "label": "🐍 Debug Current File",
+    "adapter": "debugpy",
+    "request": "launch",
+    "program": "$ZED_FILE",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "🌐 Debug Flask App",
+    "adapter": "debugpy",
+    "request": "launch",
+    "module": "flask",
+    "args": ["run", "--debug"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "env": {
+      "FLASK_APP": "app.py",
+      "FLASK_ENV": "development"
+    }
+  },
+  {
+    "label": "🧪 Debug Pytest",
+    "adapter": "debugpy",
+    "request": "launch",
+    "module": "pytest",
+    "args": ["$ZED_FILE"],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  }
+]

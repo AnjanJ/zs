@@ -1,0 +1,40 @@
+{
+  "name": "zs-zed-smart-setup",
+  "version": "1.0.0",
+  "description": "One command, zero configuration setup for Zed editor",
+  "main": "src/zs",
+  "bin": {
+    "zs": "./src/zs"
+  },
+  "scripts": {
+    "test": "shellcheck install.sh src/zs hooks/git/*",
+    "install": "./install.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/zs-zed-smart-setup.git"
+  },
+  "keywords": [
+    "zed",
+    "editor",
+    "setup",
+    "configuration",
+    "development",
+    "productivity",
+    "automation"
+  ],
+  "author": "zs contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/zs-zed-smart-setup/issues"
+  },
+  "homepage": "https://github.com/yourusername/zs-zed-smart-setup#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "preferGlobal": true
+}

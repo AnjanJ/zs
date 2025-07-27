@@ -1,0 +1,26 @@
+[
+  {
+    "label": "💧 Elixir IEx Debug",
+    "adapter": "elixir",
+    "request": "launch",
+    "program": "iex",
+    "args": ["-S", "mix"],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "🧪 Elixir Test Debug",
+    "adapter": "elixir",
+    "request": "launch",
+    "program": "mix",
+    "args": ["test", "$ZED_FILE"],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "🔍 Current Elixir File",
+    "adapter": "elixir",
+    "request": "launch",
+    "program": "elixir",
+    "args": ["$ZED_FILE"],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  }
+]

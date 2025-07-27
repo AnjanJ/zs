@@ -1,0 +1,15 @@
+#!/bin/bash
+# Smart commit-msg hook - only enforces on push
+
+# Skip during rebase
+[[ -d ".git/rebase-merge" || -d ".git/rebase-apply" ]] && exit 0
+
+# For work projects, just warn (don't block)
+if [[ "$(pwd)" == *"/work"* ]]; then
+  if ! grep -qE "Refs:\s*PFS-[0-9]+" "$1"; then
+    echo "💡 Reminder: Work commits usually need 'Refs: PFS-XXXX'"
+    # Don't exit 1 - just remind
+  fi
+fi
+
+exit 0

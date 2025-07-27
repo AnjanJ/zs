@@ -1,0 +1,35 @@
+# <type>(<scope>): <subject>
+#
+# <body>
+#
+# <footer>
+
+# Learning Project Commit Guidelines:
+# - Document time/space complexity in body
+# - Include learning notes and insights
+# - Reference study materials or sources
+# - Note alternative approaches considered
+
+# Types for learning projects:
+# solve: New algorithm or problem solution
+# optimize: Performance or complexity improvements
+# learn: Understanding-focused implementations
+# practice: Practice problems or exercises
+# study: Study notes or concept implementations
+# benchmark: Performance testing or comparisons
+# refactor: Code improvements while learning
+# test: Adding test cases or edge case handling
+# notes: Documentation, explanations, or study notes
+
+# Examples:
+# solve(arrays): implement two-pointer technique for pair sum
+# optimize(sorting): improve quicksort with 3-way partitioning
+# learn(graphs): implement DFS and BFS for tree traversal
+# benchmark(algorithms): compare sorting algorithms performance
+# study(complexity): analyze time complexity of recursive solutions
+
+# Body should include:
+# - Time complexity: O(?)
+# - Space complexity: O(?)
+# - Key insights or learnings
+# - Alternative approaches considered

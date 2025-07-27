@@ -1,0 +1,43 @@
+[
+  {
+    "label": "🐳 Docker React Debug",
+    "adapter": "JavaScript",
+    "type": "node",
+    "request": "attach",
+    "port": 9229,
+    "host": "localhost",
+    "localRoot": "$ZED_WORKTREE_ROOT",
+    "remoteRoot": "/app",
+    "skipFiles": ["<node_internals>/**"]
+  },
+  {
+    "label": "🐳 Docker React Dev Server",
+    "adapter": "JavaScript",
+    "type": "node",
+    "request": "launch",
+    "program": "docker-compose",
+    "args": ["exec", "web", "npm", "start"],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "🌐 Chrome Debug (Docker)",
+    "adapter": "JavaScript",
+    "type": "chrome",
+    "request": "launch",
+    "url": "http://localhost:3000",
+    "webRoot": "$ZED_WORKTREE_ROOT/src"
+  },
+  {
+    "label": "💎 Native React Fallback",
+    "adapter": "JavaScript",
+    "type": "node",
+    "request": "launch",
+    "program": "$ZED_WORKTREE_ROOT/node_modules/.bin/react-scripts",
+    "args": ["start"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "skipFiles": ["<node_internals>/**"]
+  }
+]

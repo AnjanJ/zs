@@ -1,0 +1,99 @@
+[
+  {
+    "label": "⚛️ Dev Server",
+    "command": "npm",
+    "args": ["run", "dev"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "🏗️ Build",
+    "command": "npm",
+    "args": ["run", "build"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧪 Run Tests",
+    "command": "npm",
+    "args": ["test"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧪 Test Watch",
+    "command": "npm",
+    "args": ["run", "test", "--", "--watch"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🧪 Test Coverage",
+    "command": "npm",
+    "args": ["test", "--", "--coverage", "--watchAll=false"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔍 TypeScript Check",
+    "command": "npx",
+    "args": ["tsc", "--noEmit"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔍 TypeScript Watch",
+    "command": "npx",
+    "args": ["tsc", "--noEmit", "--watch"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🛠️ ESLint Fix",
+    "command": "npx",
+    "args": ["eslint", "--fix", "."],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🛠️ ESLint Check",
+    "command": "npx",
+    "args": ["eslint", "."],
+    "use_new_terminal": false
+  },
+  {
+    "label": "💅 Prettier Format",
+    "command": "npx",
+    "args": ["prettier", "--write", "."],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔄 Install Dependencies",
+    "command": "npm",
+    "args": ["install"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔄 Update Dependencies",
+    "command": "npm",
+    "args": ["update"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔍 Dependency Audit",
+    "command": "npm",
+    "args": ["audit"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔒 Audit Fix",
+    "command": "npm",
+    "args": ["audit", "fix"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📊 Bundle Analyzer",
+    "command": "npx",
+    "args": ["webpack-bundle-analyzer", "build/static/js/*.js"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🧹 Clean Cache",
+    "command": "rm",
+    "args": ["-rf", "node_modules/.cache"],
+    "use_new_terminal": false
+  }
+]

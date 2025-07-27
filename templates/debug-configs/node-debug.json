@@ -1,0 +1,36 @@
+[
+  {
+    "label": "📦 Node.js Debug",
+    "adapter": "JavaScript",
+    "type": "node",
+    "request": "launch",
+    "program": "$ZED_WORKTREE_ROOT/index.js",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "skipFiles": ["<node_internals>/**"]
+  },
+  {
+    "label": "🧪 NPM Test Debug",
+    "adapter": "JavaScript",
+    "type": "node",
+    "request": "launch",
+    "program": "$ZED_WORKTREE_ROOT/node_modules/.bin/jest",
+    "args": ["--runInBand"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "env": {
+      "NODE_ENV": "test"
+    },
+    "skipFiles": ["<node_internals>/**"]
+  },
+  {
+    "label": "📄 Current File Debug",
+    "adapter": "JavaScript",
+    "type": "node",
+    "request": "launch",
+    "program": "$ZED_FILE",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "skipFiles": ["<node_internals>/**"]
+  }
+]

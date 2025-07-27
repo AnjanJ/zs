@@ -1,0 +1,41 @@
+[
+  {
+    "label": "🧠 Python ML Debug",
+    "adapter": "Python",
+    "type": "python",
+    "request": "launch",
+    "program": "$ZED_FILE",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "console": "integratedTerminal",
+    "env": {
+      "PYTHONPATH": "$ZED_WORKTREE_ROOT"
+    }
+  },
+  {
+    "label": "📊 Jupyter Notebook Debug",
+    "adapter": "Python",
+    "type": "python",
+    "request": "launch",
+    "program": "jupyter",
+    "args": ["notebook", "--no-browser", "--port=8888"],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "🧪 PyTest ML Debug",
+    "adapter": "Python",
+    "type": "python",
+    "request": "launch",
+    "module": "pytest",
+    "args": ["$ZED_FILE", "-v"],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "⚡ FastAPI ML Debug",
+    "adapter": "Python",
+    "type": "python",
+    "request": "launch",
+    "module": "uvicorn",
+    "args": ["main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  }
+]

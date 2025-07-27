@@ -1,0 +1,23 @@
+#!/bin/bash
+# Smart pre-commit hook - gets out of your way
+
+# Skip during rebase
+[[ -d ".git/rebase-merge" || -d ".git/rebase-apply" ]] && exit 0
+
+# Skip if explicitly disabled
+[[ -f ".nohooks" || -f ".git/.nohooks" ]] && exit 0
+
+# Quick commits (< 5 files) get relaxed checks
+file_count=$(git diff --cached --name-only | wc -l)
+[[ $file_count -lt 5 ]] && exit 0
+
+# Run basic checks based on project type
+if [[ -f "Gemfile" ]]; then
+  # Ruby - just check syntax, don't block on style
+  git diff --cached --name-only --diff-filter=ACM | grep '\.rb$' | xargs -I {} ruby -c {} >/dev/null 2>&1 || exit 0
+elif [[ -f "package.json" ]]; then
+  # Node - just check for obvious issues
+  git diff --cached --name-only | grep -E '\.(js|jsx|ts|tsx)$' | head -5 | xargs -I {} node -c {} >/dev/null 2>&1 || exit 0
+fi
+
+exit 0

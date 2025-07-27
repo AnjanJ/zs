@@ -1,0 +1,63 @@
+[
+  {
+    "label": "🐍 Run Python File",
+    "command": "python",
+    "args": ["$ZED_FILE"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧪 Run Tests (pytest)",
+    "command": "pytest",
+    "args": [],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧪 Test Current File",
+    "command": "pytest",
+    "args": ["$ZED_FILE"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📊 Test with Coverage",
+    "command": "pytest",
+    "args": ["--cov=.", "--cov-report=html"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🎨 Format (Black)",
+    "command": "black",
+    "args": ["."],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔍 Lint (Flake8)",
+    "command": "flake8",
+    "args": ["."],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📦 Install Dependencies",
+    "command": "pip",
+    "args": ["install", "-r", "requirements.txt"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🌐 Flask Dev Server",
+    "command": "flask",
+    "args": ["run", "--debug"],
+    "env": {"FLASK_ENV": "development"},
+    "use_new_terminal": true
+  },
+  {
+    "label": "🌐 Django Server",
+    "command": "python",
+    "args": ["manage.py", "runserver"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "📓 Jupyter Notebook",
+    "command": "jupyter",
+    "args": ["notebook"],
+    "use_new_terminal": true
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "label": "Git Status",
+    "command": "git",
+    "args": ["status"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "Format Code",
+    "co  {nd": "echo",
+    "args": ["Code formatting..."],
+    "use_new_terminal": false
+  }
+]

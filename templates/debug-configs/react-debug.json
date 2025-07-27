@@ -1,0 +1,32 @@
+[
+  {
+    "label": "⚛️ React Dev Server Debug",
+    "adapter": "node",
+    "request": "launch",
+    "program": "$ZED_WORKTREE_ROOT/node_modules/.bin/react-scripts",
+    "args": ["start"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "env": {
+      "NODE_ENV": "development",
+      "BROWSER": "none"
+    }
+  },
+  {
+    "label": "🧪 Jest Test Debug",
+    "adapter": "node",
+    "request": "launch",
+    "program": "$ZED_WORKTREE_ROOT/node_modules/.bin/react-scripts",
+    "args": ["test", "--runInBand", "--no-cache", "--watchAll=false"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "env": {
+      "NODE_ENV": "test"
+    }
+  },
+  {
+    "label": "📄 Current JS/TS File",
+    "adapter": "node",
+    "request": "launch",
+    "program": "$ZED_FILE",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  }
+]

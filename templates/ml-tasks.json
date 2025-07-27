@@ -1,0 +1,74 @@
+[
+  {
+    "label": "🧠 Train Model",
+    "command": "python",
+    "args": ["train.py"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "📊 Jupyter Lab",
+    "command": "jupyter",
+    "args": ["lab"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🧪 Run Experiments",
+    "command": "python",
+    "args": ["${ZED_FILE}"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📈 TensorBoard",
+    "command": "tensorboard",
+    "args": ["--logdir", "logs/"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🔍 Model Evaluation",
+    "command": "python",
+    "args": ["evaluate.py"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📊 Data Visualization",
+    "command": "python",
+    "args": ["visualize_data.py"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧹 Preprocess Data",
+    "command": "python",
+    "args": ["preprocess.py"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "⚡ GPU Check",
+    "command": "python",
+    "args": ["-c", "import torch; print(f'CUDA: {torch.cuda.is_available()}')"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📦 Install Requirements",
+    "command": "pip",
+    "args": ["install", "-r", "requirements.txt"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🐍 Virtual Environment",
+    "command": "python",
+    "args": ["-m", "venv", "venv"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🎯 Hyperparameter Tuning",
+    "command": "python",
+    "args": ["hyperparameter_search.py"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🚀 Model Server",
+    "command": "python",
+    "args": ["serve_model.py"],
+    "use_new_terminal": true
+  }
+]

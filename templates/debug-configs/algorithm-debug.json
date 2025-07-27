@@ -1,0 +1,23 @@
+[
+  {
+    "label": "🧠 Python Algorithm Debug",
+    "adapter": "debugpy",
+    "request": "launch",
+    "program": "$ZED_FILE",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "💎 Ruby Algorithm Debug",
+    "adapter": "rdbg",
+    "request": "launch",
+    "program": "$ZED_FILE",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "📦 Node.js Algorithm Debug",
+    "adapter": "node",
+    "request": "launch",
+    "program": "$ZED_FILE",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  }
+]

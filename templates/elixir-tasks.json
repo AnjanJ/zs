@@ -1,0 +1,92 @@
+[
+  {
+    "label": "💧 Start Phoenix Server",
+    "command": "mix",
+    "args": ["phx.server"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🧪 Run All Tests",
+    "command": "mix",
+    "args": ["test"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧪 Run Current Test File",
+    "command": "mix",
+    "args": ["test", "${ZED_FILE}"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧪 Run Tests with Coverage",
+    "command": "mix",
+    "args": ["test", "--cover"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🖥️ IEx Interactive Shell",
+    "command": "iex",
+    "args": ["-S", "mix"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🔧 Format Code",
+    "command": "mix",
+    "args": ["format"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔍 Credo Analysis",
+    "command": "mix",
+    "args": ["credo"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "⚡ Compile",
+    "command": "mix",
+    "args": ["compile"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📦 Get Dependencies",
+    "command": "mix",
+    "args": ["deps.get"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🗄️ Setup Database",
+    "command": "mix",
+    "args": ["ecto.setup"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🗄️ Run Migrations",
+    "command": "mix",
+    "args": ["ecto.migrate"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🗄️ Rollback Migration",
+    "command": "mix",
+    "args": ["ecto.rollback"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🌱 Seed Database",
+    "command": "mix",
+    "args": ["run", "priv/repo/seeds.exs"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📊 Dialyzer Analysis",
+    "command": "mix",
+    "args": ["dialyzer"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧹 Clean Build",
+    "command": "mix",
+    "args": ["clean"],
+    "use_new_terminal": false
+  }
+]

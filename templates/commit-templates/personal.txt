@@ -1,0 +1,29 @@
+# <type>(<scope>): <subject>
+#
+# <body>
+#
+# <footer>
+
+# Personal Project Commit Guidelines:
+# - Be creative and experimental
+# - Document learning experiences
+# - Include performance notes for optimizations
+# - Reference learning resources when applicable
+
+# Types for personal projects:
+# feat: New feature or functionality
+# fix: Bug fix
+# experiment: Experimental feature or trying new approaches
+# learn: Learning-focused changes or implementations
+# perf: Performance improvements
+# style: Code style changes (formatting, naming, etc.)
+# refactor: Code refactoring without functionality changes
+# test: Adding or updating tests
+# docs: Documentation changes
+# chore: Maintenance tasks, dependency updates
+
+# Examples:
+# feat(auth): implement JWT authentication with refresh tokens
+# experiment(ui): try new animation library for better UX
+# learn(algorithms): implement merge sort with performance tracking
+# perf(api): optimize database queries for faster response times

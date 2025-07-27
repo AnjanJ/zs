@@ -1,0 +1,136 @@
+[
+  {
+    "label": "🎨 Canvas LTI Server (Dev)",
+    "command": "bundle",
+    "args": ["exec", "rails", "server", "-p", "3000"],
+    "env": { 
+      "RAILS_ENV": "development",
+      "LTI_DEBUG": "true",
+      "CANVAS_API_DEBUG": "true"
+    },
+    "use_new_terminal": true
+  },
+  {
+    "label": "🖥️ Rails Console (LTI Context)",
+    "command": "bundle",
+    "args": ["exec", "rails", "console"],
+    "env": { "LTI_CONSOLE_MODE": "true" },
+    "use_new_terminal": true
+  },
+  {
+    "label": "🧪 Run All Tests",
+    "command": "bundle",
+    "args": ["exec", "rspec"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧪 LTI Integration Tests",
+    "command": "bundle",
+    "args": ["exec", "rspec", "spec/lti/", "spec/integrations/"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧪 Canvas API Tests",
+    "command": "bundle",
+    "args": ["exec", "rspec", "spec/canvas/"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧪 Security Tests",
+    "command": "bundle",
+    "args": ["exec", "rspec", "spec/security/", "--tag", "security"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔒 LTI Security Scan",
+    "command": "bundle",
+    "args": ["exec", "brakeman", "--exit-on-warn"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔑 Generate LTI Keys",
+    "command": "bundle",
+    "args": ["exec", "rails", "lti:generate_keys"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📋 Validate LTI Config",
+    "command": "bundle",
+    "args": ["exec", "rails", "lti:validate_config"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📝 Generate LTI XML",
+    "command": "bundle",
+    "args": ["exec", "rails", "lti:generate_xml"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧪 LTI Launch Test",
+    "command": "bundle",
+    "args": ["exec", "rails", "runner", "LtiSimulator.test_launch"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📊 Canvas API Test",
+    "command": "bundle",
+    "args": ["exec", "rails", "runner", "CanvasApiClient.test_connection"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔄 Sync Canvas Data",
+    "command": "bundle",
+    "args": ["exec", "rails", "canvas:sync_all"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📈 Canvas Webhook Logs",
+    "command": "tail",
+    "args": ["-f", "log/canvas_webhooks.log"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🗄️ DB Migrate",
+    "command": "bundle",
+    "args": ["exec", "rails", "db:migrate"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🗄️ DB Reset (Dev)",
+    "command": "bundle",
+    "args": ["exec", "rails", "db:reset"],
+    "env": { "RAILS_ENV": "development" },
+    "use_new_terminal": false
+  },
+  {
+    "label": "🌱 Seed Canvas Test Data",
+    "command": "bundle",
+    "args": ["exec", "rails", "db:seed:canvas_test_data"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔧 Rubocop Fix",
+    "command": "bundle",
+    "args": ["exec", "rubocop", "-A"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🎯 Canvas Developer Tools",
+    "command": "open",
+    "args": ["https://canvas.instructure.com/doc/api/"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧹 Clean Logs",
+    "command": "rm",
+    "args": ["-f", "log/*.log"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📊 Coverage Report",
+    "command": "bundle",
+    "args": ["exec", "rspec"],
+    "env": { "COVERAGE": "true" },
+    "use_new_terminal": false
+  }
+]

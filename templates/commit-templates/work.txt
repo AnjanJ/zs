@@ -1,0 +1,27 @@
+# <type>(<scope>): <subject>
+#
+# <body>
+#
+# <footer>
+
+# Work Project Commit Guidelines:
+# - Reference JIRA ticket numbers when applicable
+# - Include security considerations for LTI changes
+# - Mention Canvas compatibility testing
+# - Use professional, clear language
+
+# Types for work projects:
+# feat: New LTI feature or Canvas integration
+# fix: Bug fix affecting LTI functionality
+# security: Security improvements or fixes
+# canvas: Canvas-specific changes or compatibility updates
+# api: API changes or improvements
+# test: Adding or updating LTI integration tests
+# docs: Documentation updates for team/stakeholders
+# chore: Maintenance, dependencies, or build changes
+
+# Examples:
+# feat(lti): add grade passback functionality for assignments
+# fix(auth): resolve OAuth token refresh issue in Canvas
+# security(lti): implement additional CSRF protection
+# canvas(api): update to Canvas API v1.3 for better compatibility

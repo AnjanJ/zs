@@ -1,0 +1,62 @@
+[
+  {
+    "label": "🧠 Run Algorithm",
+    "command": "ts-node",
+    "args": ["${ZED_FILE}"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧪 Run Tests",
+    "command": "npm",
+    "args": ["test"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "⏱️ Benchmark",
+    "command": "node",
+    "args": ["-e", "console.time('Algorithm'); require('./algo.js'); console.timeEnd('Algorithm')"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔍 TypeScript Check",
+    "command": "npx",
+    "args": ["tsc", "--noEmit", "${ZED_FILE}"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🎯 Run with Debug",
+    "command": "node",
+    "args": ["--inspect-brk", "-r", "ts-node/register", "${ZED_FILE}"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "📊 Memory Profile",
+    "command": "node",
+    "args": ["--inspect", "--trace-gc", "-r", "ts-node/register", "${ZED_FILE}"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🚀 Performance Test",
+    "command": "node",
+    "args": ["--prof", "-r", "ts-node/register", "${ZED_FILE}"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧹 Generate Test File",
+    "command": "touch",
+    "args": ["test.ts"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📝 Create Readme",
+    "command": "touch",
+    "args": ["README.md"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔄 Watch & Run",
+    "command": "npx",
+    "args": ["nodemon", "--exec", "ts-node", "${ZED_FILE}"],
+    "use_new_terminal": true
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "label": "🐳 Docker Dev Server",
+    "command": "docker-compose",
+    "args": ["up", "app"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🐳 Docker Build",
+    "command": "docker-compose",
+    "args": ["exec", "app", "npm", "run", "build"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🐳 Docker Tests",
+    "command": "docker-compose",
+    "args": ["exec", "app", "npm", "test"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🐳 Docker ESLint Fix",
+    "command": "docker-compose",
+    "args": ["exec", "app", "npx", "eslint", "--fix", "."],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🐳 Docker Shell",
+    "command": "docker-compose",
+    "args": ["exec", "app", "bash"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "⚛️ Native Dev Server",
+    "command": "npm",
+    "args": ["run", "dev"],
+    "use_new_terminal": true
+  }
+]

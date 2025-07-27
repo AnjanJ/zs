@@ -1,0 +1,42 @@
+[
+  {
+    "label": "🚀 Rails Server Debug",
+    "adapter": "rdbg",
+    "request": "launch",
+    "program": "$ZED_WORKTREE_ROOT/bin/rails",
+    "args": ["server", "-p", "3000"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "env": {
+      "RAILS_ENV": "development"
+    }
+  },
+  {
+    "label": "🧪 RSpec Test Debug",
+    "adapter": "rdbg",
+    "request": "launch",
+    "program": "$ZED_WORKTREE_ROOT/bin/rspec",
+    "args": ["$ZED_FILE"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "env": {
+      "RAILS_ENV": "test"
+    }
+  },
+  {
+    "label": "📋 Rails Console Debug",
+    "adapter": "rdbg",
+    "request": "launch",
+    "program": "$ZED_WORKTREE_ROOT/bin/rails",
+    "args": ["console"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "env": {
+      "RAILS_ENV": "development"
+    }
+  },
+  {
+    "label": "🔍 Current Ruby File",
+    "adapter": "rdbg",
+    "request": "launch",
+    "program": "$ZED_FILE",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  }
+]

@@ -1,0 +1,63 @@
+[
+  {
+    "label": "🐳 Docker Rails Server",
+    "command": "docker-compose",
+    "args": ["up", "web"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "🐳 Docker Rails Console",
+    "command": "docker-compose",
+    "args": ["exec", "web", "bundle", "exec", "rails", "console"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🐳 Docker Run Tests",
+    "command": "docker-compose",
+    "args": ["exec", "web", "bundle", "exec", "rspec"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🐳 Docker DB Migrate",
+    "command": "docker-compose",
+    "args": ["exec", "web", "bundle", "exec", "rails", "db:migrate"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🐳 Docker Rubocop Fix",
+    "command": "docker-compose",
+    "args": ["exec", "web", "bundle", "exec", "rubocop", "-A"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🐳 Docker Shell (Web)",
+    "command": "docker-compose",
+    "args": ["exec", "web", "bash"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🐳 Docker Up All",
+    "command": "docker-compose",
+    "args": ["up", "-d"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🐳 Docker Down",
+    "command": "docker-compose",
+    "args": ["down"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "💎 Native Rails Server",
+    "command": "bundle",
+    "args": ["exec", "rails", "server"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "💎 Native Rails Console",
+    "command": "bundle",
+    "args": ["exec", "rails", "console"],
+    "use_new_terminal": true
+  }
+]

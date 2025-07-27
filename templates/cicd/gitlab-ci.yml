@@ -1,0 +1,105 @@
+# GitLab CI/CD Configuration
+image: ruby:3.2.0
+
+variables:
+  POSTGRES_DB: test_db
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_HOST_AUTH_METHOD: trust
+  RAILS_ENV: test
+
+services:
+  - postgres:13
+  - redis:6
+
+stages:
+  - setup
+  - quality
+  - test
+  - security
+  - build
+  - deploy
+
+cache:
+  key: "\$CI_COMMIT_REF_SLUG"
+  paths:
+    - vendor/ruby
+    - node_modules/
+
+before_script:
+  - apt-get update -qq && apt-get install -y -qq git nodejs npm
+  - ruby -v
+  - which ruby
+  - gem install bundler --no-document
+  - bundle config set --local path 'vendor'
+  - bundle install
+  - npm install
+
+setup:
+  stage: setup
+  script:
+    - bundle exec rails db:create
+    - bundle exec rails db:migrate
+  artifacts:
+    paths:
+      - vendor/
+      - node_modules/
+    expire_in: 1 hour
+
+rubocop:
+  stage: quality
+  script:
+    - bundle exec rubocop
+  allow_failure: false
+
+brakeman:
+  stage: security
+  script:
+    - bundle exec brakeman --exit-on-warn
+  allow_failure: false
+
+rspec:
+  stage: test
+  script:
+    - bundle exec rspec
+  coverage: '/\d+\.\d+%/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: simplecov
+        path: coverage/.resultset.json
+
+build:
+  stage: build
+  script:
+    - bundle exec rails assets:precompile
+  artifacts:
+    paths:
+      - public/assets/
+    expire_in: 1 week
+  only:
+    - main
+    - develop
+
+deploy_staging:
+  stage: deploy
+  script:
+    - echo "Deploying to staging..."
+    # Add your staging deployment commands here
+  environment:
+    name: staging
+    url: https://staging.example.com
+  only:
+    - develop
+
+deploy_production:
+  stage: deploy
+  script:
+    - echo "Deploying to production..."
+    # Add your production deployment commands here
+  environment:
+    name: production
+    url: https://example.com
+  when: manual
+  only:
+    - main

@@ -1,0 +1,227 @@
+#!/bin/bash
+# Zed Smart Setup - Ultimate Simplification
+# One command to rule them all: zs
+
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m'
+BLUE='\033[0;34m'
+
+# Minimal output helpers
+success() { echo -e "${GREEN}✅ $1${NC}"; }
+warning() { echo -e "${YELLOW}⚠️  $1${NC}"; }
+error() { echo -e "${RED}❌ $1${NC}"; }
+info() { [[ "${ZS_VERBOSE:-false}" == "true" ]] && echo -e "${BLUE}$1${NC}"; }
+
+# Configuration
+ZS_CONFIG_DIR="${ZS_CONFIG_DIR:-$HOME/.config/zs}"
+TEMPLATES_DIR="$ZS_CONFIG_DIR/templates"
+DEBUG_TEMPLATES_DIR="$ZS_CONFIG_DIR/templates/debug-configs"
+HOOKS_DIR="$ZS_CONFIG_DIR/hooks/git"
+LAST_RUN_FILE="$ZS_CONFIG_DIR/.last-run"
+
+# Smart detection functions
+detect_project_type() {
+  if [[ -f "Gemfile" ]]; then
+    grep -q "lti" Gemfile 2>/dev/null && echo "lti" || echo "rails"
+  elif [[ -f "mix.exs" ]]; then
+    echo "elixir"
+  elif [[ -f "package.json" ]]; then
+    grep -q '"react"' package.json 2>/dev/null && echo "react" || echo "node"
+  elif [[ -f "requirements.txt" || -f "pyproject.toml" ]]; then
+    echo "python"
+  else
+    echo "universal"
+  fi
+}
+
+detect_workspace() {
+  case "$(pwd)" in
+    *"/work"*) echo "work" ;;
+    *"/code/learning"*) echo "learning" ;;
+    *"/code"*) echo "personal" ;;
+    *) echo "personal" ;;
+  esac
+}
+
+# Check if we need to run (smart caching)
+should_run_setup() {
+  local force="${1:-false}"
+  
+  # Always run if forced or no configs exist
+  [[ "$force" == "true" ]] && return 0
+  [[ ! -f ".zed/tasks.json" || ! -f ".zed/debug.json" ]] && return 0
+  
+  # Check if configs are stale (30+ days)
+  if [[ -f ".zed/tasks.json" ]]; then
+    local age=$(( $(date +%s) - $(stat -f %m ".zed/tasks.json" 2>/dev/null || stat -c %Y ".zed/tasks.json" 2>/dev/null || echo 0) ))
+    [[ $age -gt 2592000 ]] && return 0  # 30 days
+  fi
+  
+  return 1  # Skip setup
+}
+
+# Install only what's needed for Zed
+ensure_dependencies() {
+  local project_type="$1"
+  
+  case "$project_type" in
+    *rails*|*lti*)
+      if ! gem list ruby-debug-ide -i &>/dev/null; then
+        info "Installing Ruby debug support..."
+        gem install ruby-debug-ide debase --no-document &>/dev/null && info "Ruby debug ready"
+      fi
+      ;;
+    python)
+      if ! python3 -c "import debugpy" &>/dev/null; then
+        info "Installing Python debug support..."
+        pip install --user debugpy &>/dev/null && info "Python debug ready"
+      fi
+      ;;
+    elixir)
+      if ! command -v elixir-ls &>/dev/null; then
+        info "Installing Elixir language server..."
+        mix escript.install hex elixir_ls --force &>/dev/null && info "Elixir LSP ready"
+      fi
+      ;;
+  esac
+}
+
+# Generate task config
+create_tasks() {
+  local project_type="$1"
+  local template="$TEMPLATES_DIR/${project_type}-tasks-enhanced.json"
+  [[ ! -f "$template" ]] && template="$TEMPLATES_DIR/${project_type}-tasks.json"
+  
+  if [[ -f "$template" ]]; then
+    cp "$template" ".zed/tasks.json"
+  else
+    # Minimal fallback
+    echo '[{"label":"Run","command":"echo","args":["No tasks template found"]}]' > .zed/tasks.json
+  fi
+}
+
+# Generate debug config
+create_debug() {
+  local project_type="$1"
+  local template="$DEBUG_TEMPLATES_DIR/${project_type}-debug.json"
+  
+  if [[ -f "$template" ]]; then
+    cp "$template" ".zed/debug.json"
+  else
+    # Generate appropriate debug config
+    case "$project_type" in
+      *rails*|*lti*)
+        cat > .zed/debug.json << 'EOF'
+[
+  {
+    "label": "Debug",
+    "adapter": "rdbg",
+    "request": "launch",
+    "program": "$ZED_FILE",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  }
+]
+EOF
+        ;;
+      *)
+        echo '[{"label":"Debug","adapter":"auto","request":"launch","program":"$ZED_FILE","cwd":"$ZED_WORKTREE_ROOT"}]' > .zed/debug.json
+        ;;
+    esac
+  fi
+}
+
+# Smart git hooks (only if needed)
+setup_git_hooks() {
+  local workspace="$1"
+  
+  [[ ! -d ".git" ]] && return
+  [[ -f ".nohooks" || -f ".git/.nohooks" ]] && return
+  
+  # Skip if hooks are recent (24h)
+  if [[ -f ".git/hooks/pre-commit" ]]; then
+    local age=$(( $(date +%s) - $(stat -f %m ".git/hooks/pre-commit" 2>/dev/null || stat -c %Y ".git/hooks/pre-commit" 2>/dev/null || echo 0) ))
+    [[ $age -lt 86400 ]] && return
+  fi
+  
+  mkdir -p .git/hooks
+  
+  # Use smart hooks that get out of the way
+  [[ -f "$HOOKS_DIR/pre-commit-smart" ]] && cp "$HOOKS_DIR/pre-commit-smart" .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+  [[ -f "$HOOKS_DIR/commit-msg-smart" ]] && cp "$HOOKS_DIR/commit-msg-smart" .git/hooks/commit-msg && chmod +x .git/hooks/commit-msg
+  
+  [[ -f ".git/hooks/commit-msg" ]] && chmod +x .git/hooks/commit-msg
+}
+
+# Handle command line arguments
+case "${1:-}" in
+  help|-h|--help)
+    echo "✨ zs - Zed Smart Setup"
+    echo ""
+    echo "Usage: zs [options]"
+    echo ""
+    echo "Options:"
+    echo "  help, -h, --help  Show this help message"
+    echo "  force            Force setup even if configs exist"
+    echo "  version          Show version"
+    echo ""
+    echo "Just run 'zs' in any project. It figures out everything:"
+    echo "• Detects project type and workspace"
+    echo "• Installs debug dependencies if needed"
+    echo "• Creates task and debug configs"
+    echo "• Sets up git hooks based on context"
+    echo ""
+    echo "That's it. No options needed."
+    exit 0
+    ;;
+  version)
+    echo "zs version 1.0.0"
+    exit 0
+    ;;
+esac
+
+# Quick validation
+if [[ ! -d "$ZS_CONFIG_DIR" ]]; then
+  error "zs config not found at $ZS_CONFIG_DIR"
+  error "Run the installer first: curl -sSL https://raw.githubusercontent.com/yourusername/zs-zed-smart-setup/main/install.sh | bash"
+  exit 1
+fi
+
+# Detect context
+project_type=$(detect_project_type)
+workspace=$(detect_workspace)
+force=false
+[[ "${1:-}" == "force" ]] && force=true
+
+# Smart skip
+if ! should_run_setup "$force"; then
+  success "Already configured (${project_type} project)"
+  exit 0
+fi
+
+# Do the work (quietly)
+mkdir -p .zed
+
+ensure_dependencies "$project_type"
+create_tasks "$project_type"
+create_debug "$project_type"
+setup_git_hooks "$workspace"
+
+# Count tasks
+task_count=$(grep -c '"label"' .zed/tasks.json 2>/dev/null || echo 0)
+
+# Single line output
+case "$project_type" in
+  rails|lti) success "Rails project ready ($task_count tasks, debugging enabled)" ;;
+  react) success "React project ready ($task_count tasks, debugging enabled)" ;;
+  elixir) success "Elixir project ready ($task_count tasks, debugging enabled)" ;;
+  python) success "Python project ready ($task_count tasks, debugging enabled)" ;;
+  *) success "Project ready ($task_count tasks)" ;;
+esac
+
+# Special note for work projects (only first time)
+if [[ "$workspace" == "work" && ! -f ".zed/.work-noted" ]]; then
+  echo "  → Work project: commits need 'Refs: PFS-XXXX'"
+  touch .zed/.work-noted
+fi

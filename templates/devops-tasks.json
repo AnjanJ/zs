@@ -1,0 +1,74 @@
+[
+  {
+    "label": "🐳 Build Docker Image",
+    "command": "docker",
+    "args": ["build", "-t", "\${PWD##*/}", "."],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🚀 Deploy to Local K8s",
+    "command": "kubectl",
+    "args": ["apply", "-f", "k8s/"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📊 K8s Pod Status",
+    "command": "kubectl",
+    "args": ["get", "pods"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📋 K8s Logs",
+    "command": "kubectl",
+    "args": ["logs", "-f", "-l", "app=\${PWD##*/}"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🔧 Terraform Plan",
+    "command": "terraform",
+    "args": ["plan"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🚀 Terraform Apply",
+    "command": "terraform",
+    "args": ["apply"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🧪 Run Ansible Playbook",
+    "command": "ansible-playbook",
+    "args": ["playbook.yml"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "📊 Docker System Info",
+    "command": "docker",
+    "args": ["system", "df"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🔍 Security Scan",
+    "command": "trivy",
+    "args": ["image", "\${PWD##*/}"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📈 Monitoring Dashboard",
+    "command": "open",
+    "args": ["http://localhost:3000/dashboard"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🧹 Clean Docker",
+    "command": "docker",
+    "args": ["system", "prune", "-f"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "⚙️ Helm Install",
+    "command": "helm",
+    "args": ["install", "\${PWD##*/}", "./helm"],
+    "use_new_terminal": false
+  }
+]

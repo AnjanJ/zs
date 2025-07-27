@@ -1,0 +1,74 @@
+[
+  {
+    "label": "🏗️ Start All Services",
+    "command": "docker-compose",
+    "args": ["up", "-d"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📊 Monitor Services",
+    "command": "docker-compose",
+    "args": ["ps"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📈 View Logs",
+    "command": "docker-compose",
+    "args": ["logs", "-f"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🧪 Load Test",
+    "command": "artillery",
+    "args": ["run", "load-test.yml"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "📊 Stress Test",
+    "command": "ab",
+    "args": ["-n", "1000", "-c", "10", "http://localhost:3000/"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🔍 Redis Monitor",
+    "command": "redis-cli",
+    "args": ["monitor"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🗄️ Postgres Metrics",
+    "command": "psql",
+    "args": ["-c", "SELECT * FROM pg_stat_activity;"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📋 Generate Architecture Diagram",
+    "command": "python",
+    "args": ["generate_architecture.py"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "🌐 Test API Endpoints",
+    "command": "newman",
+    "args": ["run", "api-tests.postman_collection.json"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "⚡ Performance Profiling",
+    "command": "node",
+    "args": ["--prof", "server.js"],
+    "use_new_terminal": true
+  },
+  {
+    "label": "🧹 Cleanup Containers",
+    "command": "docker-compose",
+    "args": ["down", "-v"],
+    "use_new_terminal": false
+  },
+  {
+    "label": "📚 Open System Design Docs",
+    "command": "open",
+    "args": ["./docs/system-design.md"],
+    "use_new_terminal": false
+  }
+]
