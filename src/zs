@@ -24,7 +24,7 @@ LAST_RUN_FILE="$ZS_CONFIG_DIR/.last-run"
 # Smart detection functions
 detect_project_type() {
   if [[ -f "Gemfile" ]]; then
-    grep -q "lti" Gemfile 2>/dev/null && echo "lti" || echo "rails"
+    echo "rails"
   elif [[ -f "mix.exs" ]]; then
     echo "elixir"
   elif [[ -f "package.json" ]]; then
@@ -67,7 +67,7 @@ ensure_dependencies() {
   local project_type="$1"
   
   case "$project_type" in
-    *rails*|*lti*)
+    rails)
       if ! gem list debug -i &>/dev/null; then
         info "Installing Ruby debug support..."
         gem install debug --no-document &>/dev/null && info "Ruby debug ready"
@@ -112,7 +112,7 @@ create_debug() {
   else
     # Generate appropriate debug config
     case "$project_type" in
-      *rails*|*lti*)
+      rails)
         cat > .zed/debug.json << 'EOF'
 [
   {
@@ -213,7 +213,7 @@ task_count=$(grep -c '"label"' .zed/tasks.json 2>/dev/null || echo 0)
 
 # Single line output
 case "$project_type" in
-  rails|lti) success "Rails project ready ($task_count tasks, debugging enabled)" ;;
+  rails) success "Rails project ready ($task_count tasks, debugging enabled)" ;;
   react) success "React project ready ($task_count tasks, debugging enabled)" ;;
   elixir) success "Elixir project ready ($task_count tasks, debugging enabled)" ;;
   python) success "Python project ready ($task_count tasks, debugging enabled)" ;;

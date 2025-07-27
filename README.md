@@ -78,7 +78,6 @@ $ zs
 zs automatically detects:
 
 - **Rails/Ruby**: Presence of `Gemfile`
-- **LTI Tools**: Rails projects with `lti` gem
 - **React**: `package.json` with react dependency
 - **Node.js**: Generic `package.json`
 - **Python**: `requirements.txt` or `pyproject.toml`
