@@ -7,7 +7,7 @@
   },
   {
     "label": "Format Code",
-    "co  {nd": "echo",
+    "command": "echo",
     "args": ["Code formatting..."],
     "use_new_terminal": false
   }
