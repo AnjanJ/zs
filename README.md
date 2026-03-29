@@ -179,4 +179,6 @@ If this project saves you time, consider sponsoring. It keeps development going 
 
 ---
 
+**Made with ❤️ by [Anjan](https://anjan.dev)**
+
 *The best interface is no interface.*
